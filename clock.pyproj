@@ -24,7 +24,7 @@
     <Compile Include="clock.py" />
     <Compile Include="clock_database.py" />
     <Compile Include="clock_ui.py" />
-    <Compile Include="TimeClock.py" />
+    <Compile Include="timeclock.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
