@@ -9,8 +9,8 @@ class ClockUI:
         sg.set_options(font=(self.font, 10))
         self.PROGRAM_TITLE = "Python Time Clock"
         self.images = {
-            "edit_icon": "C:/Users/Sellersj/source/repos/clock/static/images/edit_icon.png",
-            "cal_icon": "C:/Users/Sellersj/source/repos/clock/static/images/cal_icon.png",
+            "edit_icon": "/static/images/edit_icon.png",
+            "cal_icon": "/static/images/cal_icon.png",
         }
 
     def get_main_window(self, window_location, window_message1, window_message2):
