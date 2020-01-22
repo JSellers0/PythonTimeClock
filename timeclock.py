@@ -19,7 +19,6 @@
 # BUG: More robust item input validation: required fields are noted, submitted, proper format
 # BUG: Reporting - Default date sticks on date program was started.  Should default to today.
 
-
 from datetime import datetime
 from datetime import timedelta
 from dateutil import tz

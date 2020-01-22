@@ -2,15 +2,15 @@ import PySimpleGUI as sg
 
 
 class ClockUI:
-    def __init__(self):
+    def __init__(self, cwd):
         sg.theme("Reddit")
         self.font = "Roboto"
         sg.set_options(element_padding=(0, 0))
         sg.set_options(font=(self.font, 10))
         self.PROGRAM_TITLE = "Python Time Clock"
         self.images = {
-            "edit_icon": "/static/images/edit_icon.png",
-            "cal_icon": "/static/images/cal_icon.png",
+            "edit_icon": cwd + "/static/images/edit_icon.png",
+            "cal_icon": cwd + "/static/images/cal_icon.png",
         }
 
     def get_main_window(self, window_location, window_message1, window_message2):
