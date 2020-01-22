@@ -1,6 +1,6 @@
 from clock_database import ClockDatabase
 from clock_ui import ClockUI
-from TimeClock import TimeClock
+from timeclock import TimeClock
 
 
 def run():
