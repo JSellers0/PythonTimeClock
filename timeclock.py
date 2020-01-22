@@ -1,17 +1,23 @@
+""" ====== PROGRAM ARCHITECTURE ====== """
 # TODO: Create "About" or Readme to include link to icons8 <a target="_blank" href="https://icons8.com/icons/set/edit-property">Edit Property icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 # <a target="_blank" href="https://icons8.com/icons/set/calendar">Calendar icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 
 
-# TODO: Build project and client counters and order by most frequent.
-# TODO: Reporting - Note on report page that there are missing stamps and calculate available times.
-# TODO: Reporting - Default date sticks on date program was started.  Should default to today.
-# TODO: Reporting - Quick Link for 'This Week'
-# TODO: UI Formatting: Adjustment and Reporting windows
+""" ====== DATABASE ARCHITECTURE ====== """
 # TODO: TimeLog State column (ACT, DEL).  Adjustment Delete button sets State to DEL.  Update all queries to only return active rows.
 # TODO: Note Table, NoteID Field in Timelog to add notes, especially for projects that share activity code.
+# TODO: Build project and client counters and order by most frequent.
+
+""" ====== PROGRAM FEATURES ====== """
+# TODO: Reporting - Note on report page that there are missing stamps and calculate available times.
+# TODO: Reporting - Quick Link for 'This Week'
+# TODO: UI Formatting: Adjustment and Reporting windows
 # TODO: Reporting Excel Export
-# TODO: Separate "Close" and "None' events to handle closing the root window.
-# TODO: More robust item input validation: required fields are noted, submitted, proper format
+
+""" ====== BUG FIXES ====== """
+# BUG: Separate "Close" and "None' events to handle closing the root window.
+# BUG: More robust item input validation: required fields are noted, submitted, proper format
+# BUG: Reporting - Default date sticks on date program was started.  Should default to today.
 
 
 from datetime import datetime
