@@ -15,9 +15,10 @@
 # TODO: Reporting Excel Export
 
 """ ====== BUG FIXES ====== """
-# BUG: Separate "Close" and "None' events to handle closing the root window.
 # BUG: More robust item input validation: required fields are noted, submitted, proper format
-# BUG: Reporting - Default date sticks on date program was started.  Should default to today.
+# BUG: Adjust Timestamps breaking on client_listbox and probably project_listbox.
+
+import sys
 
 from datetime import datetime
 from datetime import timedelta
@@ -32,7 +33,6 @@ class TimeClock():
             .astimezone(tz.tzutc())
             .strftime("%Y-%m-%d %H:%M")
         )
-
 
     def convert_to_local(self, timestamp, date_only=False):
         if date_only:
@@ -49,7 +49,6 @@ class TimeClock():
                 .astimezone(tz.tzlocal())
                 .strftime("%Y-%m-%d %H:%M")
             )
-
 
     def initialize_states(self):
         state = {
@@ -69,7 +68,6 @@ class TimeClock():
         }
         return state
 
-
     def start_timing(self, state, db):
         timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M")
         item = {
@@ -86,7 +84,6 @@ class TimeClock():
         state["timelogid"] = result[0]
         return state
 
-
     def stop_timing(self, state, db):
         timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M")
         item = {"field": "stop", "value": timestamp, "itemid": state["timelogid"]}
@@ -96,7 +93,6 @@ class TimeClock():
         state["message2"] = "at {}".format(stop_time)
         state["timelogid"] = 0
         return state
-
 
     def run(self, db, ui):
         DB = db
@@ -125,7 +121,10 @@ class TimeClock():
                     report_date_event, report_date_values = report_date_window.read(
                         timeout=10
                     )
-                    if report_date_event == "Cancel":
+                    if report_date_event == None:
+                        DB.close()
+                        sys.exit()
+                    elif report_date_event == "Cancel":
                         main_window = UI.get_main_window(
                             report_date_window.current_location(),
                             state["message1"],
@@ -133,6 +132,7 @@ class TimeClock():
                         )
                         report_date_window.close()
                         break
+                    
                     elif report_date_event == "Submit":
                         report_df = DB.getTableItems(
                             "timelog",
@@ -204,7 +204,11 @@ class TimeClock():
                             report_date_window.close()
                             while True:
                                 report_event, report_values = report_window.read(timeout=10)
-                                if report_event == "back":
+                                if report_event == None:
+                                    DB.close()
+                                    sys.exit()
+                                
+                                elif report_event == "back":
                                     report_date_window = UI.get_report_date_window(
                                         report_window.current_location(),
                                         report_date_values["start"],
@@ -212,6 +216,7 @@ class TimeClock():
                                     )
                                     report_window.close()
                                     break
+                                
                                 elif report_event == "increment":
                                     if i + 1 < len(dates):
                                         i += 1
@@ -234,6 +239,7 @@ class TimeClock():
                                             i,
                                         )
                                         report_window2.close()
+                                
                                 elif report_event == "main":
                                     main_window = UI.get_main_window(
                                         report_window.current_location(),
@@ -251,7 +257,11 @@ class TimeClock():
                 main_window.close()
                 while True:
                     adjust_event, adjust_values = adjust_window.read(timeout=10)
-                    if adjust_event in (None, "Close"):
+                    if adjust_event == None:
+                        DB.close()
+                        sys.exit()
+                    
+                    elif adjust_event == "Close":
                         state["adjust_view"] = ""
                         main_window = UI.get_main_window(
                             adjust_window.current_location(),
@@ -260,6 +270,7 @@ class TimeClock():
                         )
                         adjust_window.close()
                         break
+                    
                     elif adjust_event == "timelog":
                         state["adjust_view"] = adjust_event
                         adjust_select_window = UI.get_adjustment_timestamp_window(
@@ -271,27 +282,33 @@ class TimeClock():
                                 adjust_select_event,
                                 adjust_select_values,
                             ) = adjust_select_window.read(timeout=10)
-                            if adjust_select_event == "Back":
+                            if adjust_select_event == None:
+                                DB.close()
+                                sys.exit()
+                            
+                            elif adjust_select_event == "Back":
                                 adjust_window = UI.get_adjustment_main_window(
                                     adjust_select_window.current_location()
                                 )
                                 adjust_select_window.close()
                                 state["adjust_view"] = ""
                                 break
+                            
                             elif adjust_select_event == "Submit":
                                 state["adjust_date"] = adjust_select_values["date_input"]
                                 break
+                    
                     elif adjust_event in ("client", "project"):
                         state["adjust_view"] = adjust_event
 
                     if state["adjust_view"]:
                         if state["adjust_view"] == "timelog":
                             adjust_df = DB.getTableItems(
-                                state["adjust_view"],
-                                self.convert_to_utc(
+                                table="timelog",
+                                start_date=self.convert_to_utc(
                                     adjust_select_values["date_input"] + " 00:00"
                                 ),
-                                self.convert_to_utc(
+                                end_date=self.convert_to_utc(
                                     adjust_select_values["date_input"] + " 23:59"
                                 ),
                             )
@@ -320,14 +337,18 @@ class TimeClock():
                             adjustment_event, adjustment_values = adjust_result_window.read(
                                 timeout=10
                             )
-
-                            if adjustment_event in (None, "Close"):
+                            if adjustment_event == None:
+                                DB.close()
+                                sys.exit()
+                            
+                            elif adjustment_event == "Close":
                                 adjust_window = UI.get_adjustment_main_window(
                                     adjust_result_window.current_location()
                                 )
                                 state["adjust_view"] = ""
                                 adjust_result_window.close()
                                 break
+                            
                             elif adjustment_event == "insert":
                                 if state["adjust_view"] == "timelog":
                                     row = {"start": state["adjust_date"], "stop": state["adjust_date"]}
@@ -401,7 +422,11 @@ class TimeClock():
                                     update_event, update_values = update_window.read(
                                         timeout=10
                                     )
-                                    if update_event in (None, "Cancel"):
+                                    if update_event == None:
+                                        DB.close()
+                                        sys.exit()
+                                    
+                                    elif update_event == "Cancel":
                                         adjust_result_window = UI.get_adjustment_results_window(
                                             update_window.current_location(),
                                             state["adjust_view"],
@@ -409,6 +434,7 @@ class TimeClock():
                                         )
                                         update_window.close()
                                         break
+                                    
                                     elif update_event == "Submit":
                                         if state["adjust_view"] == "timelog":
                                             if (
@@ -505,7 +531,10 @@ class TimeClock():
                 main_window.close()
                 while True:
                     start_event, start_values = start_window.read(timeout=10)
-                    if start_event in (None, "Back"):
+                    if start_event == None:
+                        DB.close()
+                        sys.exit()
+                    elif start_event == "Back":
                         main_window = UI.get_main_window(
                             start_window.current_location(),
                             state["message1"],
@@ -539,7 +568,10 @@ class TimeClock():
                         start_window.close()
                         while True:
                             new_event, new_values = new_window.read(timeout=10)
-                            if new_event in (None, "Cancel"):
+                            if new_event == None:
+                                DB.close()
+                                sys.exit()
+                            elif new_event == "Cancel":
                                 start_window = UI.get_start_window(
                                     new_window.current_location(),
                                     DB.getTableItems("client")["client_name"].tolist(),
