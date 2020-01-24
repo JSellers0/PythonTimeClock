@@ -16,7 +16,6 @@
 
 """ ====== BUG FIXES ====== """
 # BUG: More robust item input validation: required fields are noted, submitted, proper format
-# BUG: Adjust Timestamps breaking on client_listbox and probably project_listbox.
 
 import sys
 
@@ -461,10 +460,10 @@ class TimeClock():
                                                 ):
                                                     state["start_time"] = update_values["start"]
                                                     state["client"] = update_values[
-                                                        "client_listbox"
+                                                        "client"
                                                     ][0]
                                                     state["project"] = update_values[
-                                                        "project_listbox"
+                                                        "project"
                                                     ][0]
                                                     state[
                                                         "message1"

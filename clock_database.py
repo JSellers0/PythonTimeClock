@@ -60,10 +60,10 @@ class ClockDatabase:
                 + str(row_values["start"])
                 + """',
                 clientid = (SELECT clientID FROM client WHERE client_name = '"""
-                + row_values["client_listbox"][0]
+                + row_values["client"][0]
                 + """'),
                 projectid = (SELECT projectID FROM project WHERE project_name = '"""
-                + row_values["project_listbox"][0]
+                + row_values["project"][0]
                 + """')
             WHERE timelogid = '"""
                 + str(row_values["timelogid"])
@@ -81,10 +81,10 @@ class ClockDatabase:
                 + str(row_values["stop"])
                 + """',
                 clientid = (SELECT clientID FROM client WHERE client_name = '"""
-                + row_values["client_listbox"][0]
+                + row_values["client"][0]
                 + """'),
                 projectid = (SELECT projectID FROM project WHERE project_name = '"""
-                + row_values["project_listbox"][0]
+                + row_values["project"][0]
                 + """')
             WHERE timelogid = '"""
                 + str(row_values["timelogid"])
