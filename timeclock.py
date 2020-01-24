@@ -13,6 +13,7 @@
 # TODO: Reporting - Quick Link for 'This Week'
 # TODO: UI Formatting: Adjustment and Reporting windows
 # TODO: Reporting Excel Export
+# TODO: Adjustment - Adjacent Timestamp Check
 
 """ ====== BUG FIXES ====== """
 # BUG: More robust item input validation: required fields are noted, submitted, proper format
@@ -121,6 +122,8 @@ class TimeClock():
                         timeout=10
                     )
                     if report_date_event == None:
+                        if state["timelogid"] > 0:
+                            state = self.stop_timing(state, DB)
                         DB.close()
                         sys.exit()
                     elif report_date_event == "Cancel":
@@ -204,6 +207,8 @@ class TimeClock():
                             while True:
                                 report_event, report_values = report_window.read(timeout=10)
                                 if report_event == None:
+                                    if state["timelogid"] > 0:
+                                        state = self.stop_timing(state, DB)
                                     DB.close()
                                     sys.exit()
                                 
@@ -257,6 +262,8 @@ class TimeClock():
                 while True:
                     adjust_event, adjust_values = adjust_window.read(timeout=10)
                     if adjust_event == None:
+                        if state["timelogid"] > 0:
+                            state = self.stop_timing(state, DB)
                         DB.close()
                         sys.exit()
                     
@@ -282,6 +289,8 @@ class TimeClock():
                                 adjust_select_values,
                             ) = adjust_select_window.read(timeout=10)
                             if adjust_select_event == None:
+                                if state["timelogid"] > 0:
+                                    state = self.stop_timing(state, DB)
                                 DB.close()
                                 sys.exit()
                             
@@ -337,6 +346,8 @@ class TimeClock():
                                 timeout=10
                             )
                             if adjustment_event == None:
+                                if state["timelogid"] > 0:
+                                    state = self.stop_timing(state, DB)
                                 DB.close()
                                 sys.exit()
                             
@@ -363,7 +374,13 @@ class TimeClock():
                                     adjust_result_window.close()
                                 while True:
                                     insert_event, insert_values = insert_window.read(timeout=10)
-                                    if insert_event in (None, "Cancel"):
+                                    if insert_event == None:
+                                        if state["timelogid"] > 0:
+                                            state = self.stop_timing(state, DB)
+                                        DB.close()
+                                        sys.exit()
+                                    
+                                    elif insert_event == "Cancel":
                                         adjust_result_window = UI.get_adjustment_results_window(
                                             insert_window.current_location(),
                                             state["adjust_view"],
@@ -422,6 +439,8 @@ class TimeClock():
                                         timeout=10
                                     )
                                     if update_event == None:
+                                        if state["timelogid"] > 0:
+                                            state = self.stop_timing(state, DB)
                                         DB.close()
                                         sys.exit()
                                     
@@ -568,6 +587,8 @@ class TimeClock():
                         while True:
                             new_event, new_values = new_window.read(timeout=10)
                             if new_event == None:
+                                if state["timelogid"] > 0:
+                                    state = self.stop_timing(state, DB)
                                 DB.close()
                                 sys.exit()
                             elif new_event == "Cancel":
