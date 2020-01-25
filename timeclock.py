@@ -4,9 +4,8 @@
 
 
 """ ====== DATABASE ARCHITECTURE ====== """
-# TODO: TimeLog State column (ACT, DEL).  Adjustment Delete button sets State to DEL.  Update all queries to only return active rows.
+# TODO: TimeLog State column (ACT, DEL).  
 # TODO: Note Table, NoteID Field in Timelog to add notes, especially for projects that share activity code.
-# TODO: Build project and client counters and order by most frequent.
 
 """ ====== PROGRAM FEATURES ====== """
 # TODO: Reporting - Note on report page that there are missing stamps and calculate available times.
@@ -14,6 +13,9 @@
 # TODO: UI Formatting: Adjustment and Reporting windows
 # TODO: Reporting Excel Export
 # TODO: Adjustment - Adjacent Timestamp Check
+# TODO: Reporting - Link to adjust currently reported date
+# TODO: Build project and client counters and order by most frequent.
+# TODO: Adjustment Delete button sets State to DEL.  Update all queries to only return active rows.
 
 """ ====== BUG FIXES ====== """
 # BUG: More robust item input validation: required fields are noted, submitted, proper format
@@ -224,6 +226,7 @@ class TimeClock():
                                 elif report_event == "increment":
                                     if i + 1 < len(dates):
                                         i += 1
+                                        # TODO: Check date against Gap Dates.  Update window message if necessary.
                                         report_window2 = report_window
                                         report_window = UI.get_report_output_window(
                                             report_window2.current_location(),

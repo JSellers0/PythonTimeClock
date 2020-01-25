@@ -342,3 +342,6 @@ healthchecksdb
 
 # Apple
 .DS_Store
+
+# VSCode
+.vscode/launch.json
