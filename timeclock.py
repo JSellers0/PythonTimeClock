@@ -1,6 +1,7 @@
 """ ====== PROGRAM ARCHITECTURE ====== """
 # TODO: Create "About" or Readme to include link to icons8 <a target="_blank" href="https://icons8.com/icons/set/edit-property">Edit Property icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 # <a target="_blank" href="https://icons8.com/icons/set/calendar">Calendar icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+# TODO: Remove state[date_adjust].  Seems useless.  Use program inputs.
 
 
 """ ====== DATABASE ARCHITECTURE ====== """
@@ -283,7 +284,11 @@ class TimeClock():
                     elif adjust_event == "timelog":
                         state["adjust_view"] = adjust_event
                         adjust_select_window = UI.get_adjustment_timestamp_window(
-                            adjust_window.current_location(), state["adjust_date"]
+                            adjust_window.current_location(),
+                            self.convert_to_local(
+                                datetime.utcnow().strftime("%Y-%m-%d %H:%M"), 
+                                date_only=True
+                                )
                         )
                         adjust_window.close()
                         while True:
