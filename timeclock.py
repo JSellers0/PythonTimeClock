@@ -1,22 +1,25 @@
 """ ====== PROGRAM ARCHITECTURE ====== """
-# TODO: Create "About" or Readme to include link to icons8 <a target="_blank" href="https://icons8.com/icons/set/edit-property">Edit Property icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+# ToDo: Create "About" or Readme to include link to icons8 <a target="_blank" href="https://icons8.com/icons/set/edit-property">Edit Property icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 # <a target="_blank" href="https://icons8.com/icons/set/calendar">Calendar icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
-# TODO: Remove state[date_adjust].  Seems useless.  Use program inputs.
+# ToDo: Remove state[date_adjust].  Seems useless.  Use program inputs.
 
 
 """ ====== DATABASE ARCHITECTURE ====== """
-# TODO: TimeLog State column (ACT, DEL).  
-# TODO: Note Table, NoteID Field in Timelog to add notes, especially for projects that share activity code.
+# ToDo: Table Item State columns (ACT, INA, DEL) to allow soft and hard delete of table values.
+# ToDo: Note Table, NoteID Field in Timelog to add notes, especially for projects that share activity code.
+# ToDo: Update client/project names to match new time system
+
 
 """ ====== PROGRAM FEATURES ====== """
-# TODO: Reporting - Note on report page that there are missing stamps and calculate available times.
-# TODO: Reporting - Quick Link for 'This Week'
-# TODO: UI Formatting: Adjustment and Reporting windows
-# TODO: Reporting Excel Export
-# TODO: Adjustment - Adjacent Timestamp Check
-# TODO: Reporting - Link to adjust currently reported date
-# TODO: Build project and client counters and order by most frequent.
-# TODO: Adjustment Delete button sets State to DEL.  Update all queries to only return active rows.
+# ToDo: Reporting - Note on report page that there are missing stamps and calculate available times.
+# ToDo: Reporting - Quick Link for 'This Week'
+# ToDo: Reporting -  Excel Export
+# ToDo: Adjustment - Adjacent Timestamp Check
+# ToDo: Reporting - Link to adjust currently reported date
+# ToDo: UI - Build project and client counters and order by most frequent.
+# ToDo: Adjustment -  State Modifcation buttons.  Update all queries to only return active rows.
+# ToDo: About Page - Check for git/version update.
+# ToDo: Long-Term Integration - Explore Python's ability to interact with Maritz Time and fill out timesheets.
 
 """ ====== BUG FIXES ====== """
 # BUG: More robust item input validation: required fields are noted, submitted, proper format
