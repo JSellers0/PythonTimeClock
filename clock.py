@@ -1,8 +1,8 @@
 import os
 
-from clock_database import ClockDatabase
-from clock_ui import ClockUI
-from timeclock import TimeClock
+from timeclock.clock_database import ClockDatabase
+from timeclock.clock_ui import ClockUI
+from timeclock.timeclock import TimeClock
 
 
 def run():
