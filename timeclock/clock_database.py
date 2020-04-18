@@ -1,6 +1,8 @@
 import sqlite3
 import pandas as pd
 
+# ToDo: Replace with API calls.
+
 class ClockDatabase:
     def __init__(self, database_location):
         self.conn = sqlite3.connect(database_location)
