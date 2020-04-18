@@ -1,14 +1,5 @@
 """ ====== PROGRAM ARCHITECTURE ====== """
-# ToDo: Create "About" or Readme to include link to icons8 <a target="_blank" href="https://icons8.com/icons/set/edit-property">Edit Property icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
-# <a target="_blank" href="https://icons8.com/icons/set/calendar">Calendar icon</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 # ToDo: Remove state[date_adjust].  Seems useless.  Use program inputs.
-
-
-""" ====== DATABASE ARCHITECTURE ====== """
-# ToDo: Table Item State columns (ACT, INA, DEL) to allow soft and hard delete of table values.
-# ToDo: Note Table, NoteID Field in Timelog to add notes, especially for projects that share activity code.
-# ToDo: Update client/project names to match new time system
-
 
 """ ====== PROGRAM FEATURES ====== """
 # ToDo: Reporting - Note on report page that there are missing stamps and calculate available times.
