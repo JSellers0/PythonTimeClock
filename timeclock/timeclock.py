@@ -81,7 +81,7 @@ class TimeClock():
             "projectid": str(state["project_id"]),
             "clientid": str(state["client_id"]),
         }
-        db.create_table_item(item, "timelog")
+        db.insert_table_item(item, "timelog")
         state["start_time"] = self.convert_to_local(timestamp)
         db.c.execute("SELECT timelogid FROM timelog ORDER BY timelogid DESC LIMIT 1;")
         result = db.c.fetchone()
@@ -412,7 +412,7 @@ class TimeClock():
                                             item = insert_values["new_client"]
                                         elif state["adjust_view"] == "project":
                                             item = insert_values["new_project"]
-                                        DB.create_table_item(item, state["adjust_view"])
+                                        DB.insert_table_item(item, state["adjust_view"])
                                         if state["adjust_view"] == "timelog":
                                             adjust_df = adjust_df = DB.getTableItems(
                                                 state["adjust_view"],
@@ -616,7 +616,7 @@ class TimeClock():
                                     if not DB.check_table_item_exists(
                                         "client", new_values["new_client"]
                                     ):
-                                        DB.create_table_item(
+                                        DB.insert_table_item(
                                             new_values["new_client"], "client"
                                         )
 
@@ -624,7 +624,7 @@ class TimeClock():
                                     if not DB.check_table_item_exists(
                                         "project", new_values["new_project"]
                                     ):
-                                        DB.create_table_item(
+                                        DB.insert_table_item(
                                             new_values["new_project"], "project"
                                         )
 
