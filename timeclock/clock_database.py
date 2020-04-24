@@ -10,10 +10,6 @@ class ClockDatabase:
         self.check_tables()
 
     def check_tables(self):
-        # ToDo: Add user table
-        # ToDo: Add user_client_exlcusion table
-        # ToDo: Add user_project_exlcusion table
-        # ToDo: Add user_id to timelog
         # Create tables if they it doesn't exist
         # user
         self.c.execute(
@@ -197,7 +193,6 @@ class ClockDatabase:
             else:
                 return 0
 
-    # ToDo: Since I want to exclude clients/projects by user, I should probably make specific calls for them.
     def getTableItems(self, table, start_date="", end_date=""):
         if table == "timelog":
             sql = (
